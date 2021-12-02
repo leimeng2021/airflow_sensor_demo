@@ -65,6 +65,7 @@ def sensor_demo():
 
     s3_file_sensor = S3KeySensor(
         task_id='s3_key_sensor',
+        mode='reschedule',
         poke_interval=10,
         timeout=60*5,
         bucket_key=s3_uri,
@@ -87,7 +88,10 @@ def sensor_demo():
     find_GOAT_sensor = SqlSensor(
         task_id='new_records_sensor',
         conn_id='snowflake_connection',
-        sql=query_find_GOAT
+        sql=query_find_GOAT,
+        mode='reschedule',
+        poke_interval=10,
+        timeout=60*5,
     )
 
     def find_GOAT(**context):
