@@ -71,7 +71,8 @@ def sensor_demo():
         bucket_key=s3_uri,
         bucket_name=None,
         aws_conn_id="s3_connection",
-        wildcard_match=False
+        wildcard_match=False,
+        soft_fail=True
     )
 
     copy_into_table = S3ToSnowflakeOperator(
@@ -92,6 +93,7 @@ def sensor_demo():
         mode='poke',
         poke_interval=10,
         timeout=60*5,
+        soft_fail=False
     )
 
     def find_GOAT(**context):
